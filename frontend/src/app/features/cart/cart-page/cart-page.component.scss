@@ -1,0 +1,341 @@
+$primary:   #4F46E5;
+$bg:        #F8FAFC;
+$text-dark: #0F172A;
+$text-mid:  #64748B;
+$text-light:#94A3B8;
+$border:    #E2E8F0;
+$white:     #FFFFFF;
+
+:host { display: block; }
+
+.cart-page {
+  padding: 24px;
+  background: $bg;
+}
+
+// ── Alerts ───────────────────────────────────────────────
+.alert-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #DC2626;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 16px;
+}
+
+// ── States ───────────────────────────────────────────────
+.loading-state, .empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  color: $text-mid;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid $border;
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-icon { font-size: 56px; margin-bottom: 16px; }
+
+.empty-state h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 8px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 10px 24px;
+  background: $primary;
+  color: $white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 16px;
+
+  &:hover { background: #4338CA; }
+}
+
+// ── Layout 2 columnas ─────────────────────────────────────
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Columna artículos ─────────────────────────────────────
+.cart-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cart-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+.cart-badge {
+  background: #EEF2FF;
+  color: $primary;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 12px;
+  // height: 24px
+}
+
+// ── Item ──────────────────────────────────────────────────
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+
+  &:last-child { margin-bottom: 0; }
+  &.updating { opacity: 0.5; pointer-events: none; }
+}
+
+// Thumbnail 68×68 indigo tint (como en el design)
+.item-thumb {
+  width: 68px;
+  height: 68px;
+  border-radius: 6px;
+  background: #EEF2FF;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-ref {
+  font-size: 12px;
+  color: $text-mid;
+  margin: 0;
+}
+
+// Precio + qty (derecha)
+.item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+// Qty box con borde (diseño: "−  2  +")
+.qty-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid $border;
+  border-radius: 6px;
+  height: 28px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+
+  &:hover:not(:disabled) { background: #F1F5F9; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
+
+.qty-num {
+  min-width: 28px;
+  text-align: center;
+  font-size: 13px;
+  color: #374151;
+  border-left: 1px solid $border;
+  border-right: 1px solid $border;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: $text-light;
+  cursor: pointer;
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.1s, color 0.1s;
+
+  &:hover:not(:disabled) { background: #FEF2F2; color: #EF4444; }
+}
+
+// ── Resumen (320px) ───────────────────────────────────────
+.summary-col {
+  position: sticky;
+  top: 24px;
+}
+
+.summary-card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.summary-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 16px;
+}
+
+.divider {
+  height: 1px;
+  background: $border;
+  margin: 12px 0;
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sum-label {
+  font-size: 14px;
+  color: $text-mid;
+}
+
+.sum-value {
+  font-size: 14px;
+  color: $text-dark;
+}
+
+.total-row {
+  margin-bottom: 20px;
+}
+
+.total-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-dark;
+}
+
+.total-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: $primary;
+}
+
+.btn-checkout {
+  width: 100%;
+  height: 48px;
+  background: $primary;
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 12px;
+
+  &:hover { background: #4338CA; }
+}
+
+.ssl-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ssl-icon { font-size: 14px; color: #22C55E; }
+
+.ssl-text {
+  font-size: 12px;
+  color: $text-mid;
+}

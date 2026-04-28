@@ -1,0 +1,235 @@
+$primary:   #4F46E5;
+$bg:        #F8FAFC;
+$text-dark: #0F172A;
+$text-mid:  #64748B;
+$text-light:#94A3B8;
+$border:    #E2E8F0;
+$white:     #FFFFFF;
+
+:host { display: block; }
+
+.dashboard {
+  padding: 28px 32px;
+  background: $bg;
+  min-height: 100%;
+}
+
+// ── Header ────────────────────────────────────────────────
+.dash-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.dash-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 4px;
+}
+
+.dash-subtitle {
+  font-size: 13px;
+  color: $text-mid;
+  margin: 0;
+}
+
+.dash-date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.date-label {
+  font-size: 11px;
+  color: $text-light;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.date-value {
+  font-size: 13px;
+  color: $text-mid;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+// ── KPI Grid ──────────────────────────────────────────────
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px)  { grid-template-columns: 1fr; }
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    transform: translateY(-1px);
+  }
+}
+
+.kpi-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.kpi-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.2;
+}
+
+.kpi-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.kpi-sub {
+  font-size: 11px;
+  color: $text-light;
+}
+
+.kpi-arrow {
+  font-size: 18px;
+  color: $text-light;
+  flex-shrink: 0;
+}
+
+// ── Section ───────────────────────────────────────────────
+.section {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 14px;
+}
+
+// ── Quick Actions Grid ────────────────────────────────────
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  @media (max-width: 1100px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 600px)  { grid-template-columns: 1fr; }
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    background: #F5F3FF;
+    border-color: #C7D2FE;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+
+    .action-icon { color: $primary; }
+    .action-arrow { color: $primary; }
+  }
+}
+
+.action-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: $text-mid;
+  transition: color 0.15s;
+}
+
+.action-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.action-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.action-desc {
+  font-size: 11px;
+  color: $text-light;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-arrow {
+  font-size: 18px;
+  color: $text-light;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+// ── System Status ─────────────────────────────────────────
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  &--ok      { background: #10B981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+  &--warning { background: #F59E0B; }
+  &--error   { background: #EF4444; }
+}
+
+.status-text {
+  font-size: 12px;
+  color: $text-light;
+}

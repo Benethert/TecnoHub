@@ -1,0 +1,126 @@
+<div class="historicos-container">
+  <!-- Header -->
+  <div class="historicos-header">
+    <h1>Histórico de Comandos y Auditoría</h1>
+    <p class="subtitle">Registro completo de todas las operaciones SCADA</p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label for="days-filter">Últimos días:</label>
+      <select id="days-filter" [(ngModel)]="days" (change)="onDaysChange()">
+        <option [value]="7">7 días</option>
+        <option [value]="30">30 días</option>
+        <option [value]="90">90 días</option>
+        <option [value]="365">1 año</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Error Alert -->
+  <div *ngIf="error" class="alert-error">
+    <span>⚠ {{ error }}</span>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="state-loading">
+    <div class="spinner"></div>
+    <p>Cargando histórico…</p>
+  </div>
+
+  <!-- Tabla de comandos -->
+  <ng-container *ngIf="!loading && commands.length > 0">
+    <div class="table-container">
+      <table class="historicos-table">
+        <thead>
+          <tr>
+            <th>Fecha y Hora</th>
+            <th>Usuario</th>
+            <th>Comando (Tag)</th>
+            <th>Valor Enviado</th>
+            <th>Resultado</th>
+            <th>Respuesta Node-RED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cmd of commands" [ngClass]="getResultClase(cmd.resultado)">
+            <td class="col-datetime">{{ formatDateTime(cmd.created_at) }}</td>
+            <td class="col-user">{{ cmd.user?.name || 'Desconocido' }}</td>
+            <td class="col-tag"><code>{{ cmd.tag }}</code></td>
+            <td class="col-valor"><code>{{ cmd.valor }}</code></td>
+            <td class="col-resultado">
+              <span class="resultado-badge" [ngClass]="'resultado-' + cmd.resultado">
+                {{ getResultIcon(cmd.resultado) }} {{ cmd.resultado | uppercase }}
+              </span>
+            </td>
+            <td class="col-response">
+              <span *ngIf="cmd.resultado === 'success'" class="response-ok">
+                ✓ Completado
+              </span>
+              <span *ngIf="cmd.resultado === 'error'" class="response-error">
+                ✗ {{ cmd.error_mensaje || 'Error desconocido' }}
+              </span>
+              <span *ngIf="cmd.resultado === 'timeout'" class="response-timeout">
+                ⏱ Timeout
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <button
+        class="pagination-btn"
+        (click)="goToPage(1)"
+        [disabled]="currentPage === 1"
+      >
+        « Primero
+      </button>
+
+      <button
+        class="pagination-btn"
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+      >
+        ‹ Anterior
+      </button>
+
+      <span *ngFor="let page of pageNumbers" class="page-number">
+        <button
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </span>
+
+      <button
+        class="pagination-btn"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+      >
+        Siguiente ›
+      </button>
+
+      <button
+        class="pagination-btn"
+        (click)="goToPage(totalPages)"
+        [disabled]="currentPage === totalPages"
+      >
+        Último »
+      </button>
+
+      <span class="pagination-info">
+        Página {{ currentPage }} de {{ totalPages }} ({{ total }} registros)
+      </span>
+    </div>
+  </ng-container>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && commands.length === 0" class="empty-state">
+    <p>📭 No hay histórico de comandos</p>
+  </div>
+</div>

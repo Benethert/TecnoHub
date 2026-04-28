@@ -1,0 +1,115 @@
+<div class="cart-page">
+
+  <!-- Error global -->
+  <div class="alert-error" *ngIf="error">
+    ⚠ {{ error }}
+    <button class="close-btn" (click)="error = null">✕</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Cargando carrito…</p>
+  </div>
+
+  <!-- Vacío -->
+  <div class="empty-state" *ngIf="!loading && !error && (!cart || cart.items.length === 0)">
+    <div class="empty-icon">🛒</div>
+    <h2>Tu carrito está vacío</h2>
+    <p>Añade recambios desde el catálogo para comenzar tu pedido.</p>
+    <a routerLink="/recambios" class="btn-primary">Ver catálogo</a>
+  </div>
+
+  <!-- Layout principal -->
+  <div class="cart-layout" *ngIf="!loading && cart && cart.items.length > 0">
+
+    <!-- Columna artículos -->
+    <div class="cart-col">
+
+      <!-- Título del pedido -->
+      <div class="cart-header">
+        <span class="cart-title">Tu Pedido</span>
+        <span class="cart-badge">{{ cart.item_count }} artículos</span>
+      </div>
+
+      <!-- Lista de items -->
+      <div class="cart-item"
+           *ngFor="let item of cart.items; trackBy: trackByItemId"
+           [class.updating]="updatingItemId === item.id">
+
+        <!-- Thumbnail -->
+        <div class="item-thumb">
+          <img *ngIf="item.product_image" [src]="item.product_image" [alt]="item.product_name" />
+        </div>
+
+        <!-- Nombre y referencia -->
+        <div class="item-info">
+          <p class="item-name">{{ item.product_name }}</p>
+          <p class="item-ref" *ngIf="item.product_sku">
+            Ref: {{ item.product_sku }}
+          </p>
+        </div>
+
+        <!-- Precio + Cantidad (derecha) -->
+        <div class="item-right">
+          <span class="item-price">{{ formatPrice(item.subtotal) }}</span>
+
+          <div class="qty-box">
+            <button class="qty-btn"
+                    (click)="updateQuantity(item, item.quantity - 1)"
+                    [disabled]="item.quantity <= 1 || updatingItemId === item.id">−</button>
+            <span class="qty-num">{{ item.quantity }}</span>
+            <button class="qty-btn"
+                    (click)="updateQuantity(item, item.quantity + 1)"
+                    [disabled]="updatingItemId === item.id">+</button>
+          </div>
+        </div>
+
+        <!-- Eliminar -->
+        <button class="btn-remove"
+                (click)="removeItem(item)"
+                [disabled]="updatingItemId === item.id"
+                title="Eliminar">✕</button>
+
+      </div>
+
+    </div>
+
+    <!-- Columna resumen (320px) -->
+    <div class="summary-col">
+      <div class="summary-card">
+
+        <h3 class="summary-title">Resumen del Pedido</h3>
+        <div class="divider"></div>
+
+        <div class="sum-row">
+          <span class="sum-label">Subtotal ({{ cart.item_count }} uds.)</span>
+          <span class="sum-value">{{ formatPrice(cart.subtotal) }}</span>
+        </div>
+
+        <div class="sum-row">
+          <span class="sum-label">IVA (21%)</span>
+          <span class="sum-value">{{ formatPrice(cart.tax) }}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sum-row total-row">
+          <span class="total-label">Total incl. IVA</span>
+          <span class="total-amount">{{ formatPrice(cart.total) }}</span>
+        </div>
+
+        <button class="btn-checkout" (click)="proceedToCheckout()">
+          Proceder al Pago →
+        </button>
+
+        <div class="ssl-row">
+          <span class="ssl-icon">🛡</span>
+          <span class="ssl-text">Pago 100% seguro con cifrado SSL</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

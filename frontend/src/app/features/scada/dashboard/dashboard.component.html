@@ -1,0 +1,113 @@
+<div class="scada-dashboard">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>HMI CONTROL INDUSTRIAL</h1>
+    <div class="header-info">
+      <span *ngIf="lastUpdate" class="last-update">
+        Actualizado: {{ lastUpdate | date:'HH:mm:ss' }}
+      </span>
+      <button class="btn-refresh" (click)="loadDashboard()" [disabled]="loading || sendingCommand">
+        ⟲ Actualizar
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Alerts -->
+  <div *ngIf="error" class="alert-error">⚠ {{ error }}</div>
+  <div *ngIf="commandError" class="alert-error">⚠ {{ commandError }}</div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading && !dashboardState" class="state-loading">
+    <div class="spinner"></div>
+    <p>Conectando con Node-RED…</p>
+  </div>
+
+  <!-- Dashboard Content -->
+  <ng-container *ngIf="dashboardState">
+    <!-- Vista de proceso (replica el layout del PHP v1.1) -->
+    <div class="process-view">
+      <!-- Depósito 1 -->
+      <div class="component">
+        <div class="tank"><div class="water" style="height:60%"></div></div>
+        <p>DEPÓSITO 1</p>
+      </div>
+
+      <div class="pipe"></div>
+
+      <!-- Válvula -->
+      <div class="component">
+        <div class="device-icon"
+             [class.on]="isActive(dashboardState.O_VAL)"
+             [class.off]="!isActive(dashboardState.O_VAL)">
+          VAL
+        </div>
+      </div>
+
+      <div class="pipe"></div>
+
+      <!-- Bomba 1 -->
+      <div class="component">
+        <div class="device-icon"
+             [class.on]="isActive(dashboardState.O_B1)"
+             [class.off]="!isActive(dashboardState.O_B1)">
+          B1
+        </div>
+      </div>
+
+      <div class="pipe"></div>
+
+      <!-- Bomba 2 -->
+      <div class="component">
+        <div class="device-icon"
+             [class.on]="isActive(dashboardState.O_B2)"
+             [class.off]="!isActive(dashboardState.O_B2)">
+          B2
+        </div>
+      </div>
+
+      <div class="pipe"></div>
+
+      <!-- Depósito 2 + Lámpara (lado derecho, igual que v1.1) -->
+      <div class="component">
+        <div class="lamp"
+             [class.on]="isActive(dashboardState.O_LAMP)"
+             [class.off]="!isActive(dashboardState.O_LAMP)">
+          LAMP
+        </div>
+        <div class="tank" [class.tank-active]="isActive(dashboardState.O_LAMP)">
+          <div class="water" style="height:40%"></div>
+        </div>
+        <p>DEPÓSITO 2</p>
+      </div>
+    </div>
+
+    <!-- Reloj digital (cronómetro client-side de v1.1) -->
+    <div class="clock-container">
+      <div class="clock-label">TIEMPO OPERATIVO</div>
+      <div class="digital-clock">{{ tiempoDisplay }}</div>
+    </div>
+
+    <!-- Panel de control — 5 columnas, 10 botones (igual que v1.1) -->
+    <div class="control-panel">
+      <button class="btn btn-auto"      (click)="modoAuto()"      [disabled]="sendingCommand">MODO AUTO</button>
+      <button class="btn btn-emergency" (click)="emergencia()"    [disabled]="sendingCommand">EMERGENCIA</button>
+      <button class="btn btn-std"       (click)="abrirValvula()"  [disabled]="sendingCommand">ABRIR V</button>
+      <button class="btn btn-std"       (click)="cerrarValvula()" [disabled]="sendingCommand">CERRAR V</button>
+      <button class="btn btn-primary"   (click)="rearmeOn()"      [disabled]="sendingCommand">REARME ON</button>
+
+      <button class="btn btn-std"       (click)="lamparaOn()"     [disabled]="sendingCommand">LÁMPARA ON</button>
+      <button class="btn btn-std"       (click)="lamparaOff()"    [disabled]="sendingCommand">LÁMPARA OFF</button>
+      <button class="btn btn-marcha"    (click)="marcha()"        [disabled]="sendingCommand">MARCHA B</button>
+      <button class="btn btn-paro"      (click)="paro()"          [disabled]="sendingCommand">PARO B</button>
+      <button class="btn btn-emergency" (click)="rearmeOff()"     [disabled]="sendingCommand">REARME OFF</button>
+    </div>
+
+    <!-- Último comando enviado -->
+    <div *ngIf="lastCommand" class="last-command">
+      <strong>Último:</strong> {{ lastCommand.tag }}
+      <span [ngClass]="'result-' + lastCommand.resultado">
+        {{ lastCommand.resultado === 'success' ? '✓ OK' : '✗ Error' }}
+      </span>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,112 @@
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="page-header">
+    <button class="btn-back" (click)="goBack()">← Volver al carrito</button>
+    <h1 class="page-title">Confirmar Pago</h1>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Preparando el pago...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="alert alert-error" *ngIf="error && !loading">
+    ⚠ {{ error }}
+  </div>
+
+  <!-- Contenido -->
+  <div class="checkout-layout" *ngIf="!loading && cart">
+
+    <!-- Formulario de pago -->
+    <div class="payment-col">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Datos de Pago</h2>
+          <div class="stripe-badge">
+            <span>Pagos seguros por</span>
+            <strong> Stripe</strong>
+          </div>
+        </div>
+
+        <div class="card-body">
+
+          <!-- Dirección de envío (opcional) -->
+          <div class="form-group">
+            <label class="form-label">Dirección de entrega <span class="optional">(opcional)</span></label>
+            <input
+              class="form-input"
+              type="text"
+              placeholder="Ej: Calle Industrial 5, Nave A, 28000 Madrid"
+              [(ngModel)]="shippingAddress"
+            />
+          </div>
+
+          <!-- Stripe card element -->
+          <div class="form-group">
+            <label class="form-label">Datos de la tarjeta</label>
+            <div class="stripe-card-container">
+              <div #cardElement id="card-element"></div>
+            </div>
+            <p class="form-hint">
+              🔒 Tarjeta de prueba: <code>4242 4242 4242 4242</code> · Fecha futura · CVC cualquiera
+            </p>
+          </div>
+
+          <button
+            class="btn-pay"
+            (click)="submitPayment()"
+            [disabled]="paymentLoading">
+            <span *ngIf="!paymentLoading">
+              🔒 Pagar {{ cart ? formatPrice(cart.total) : '' }}
+            </span>
+            <span *ngIf="paymentLoading" class="loading-text">
+              <div class="spinner-sm"></div>
+              Procesando...
+            </span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen del pedido -->
+    <div class="summary-col">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Resumen</h2>
+        </div>
+
+        <div class="summary-items">
+          <div class="summary-item" *ngFor="let item of cart.items">
+            <div class="item-info">
+              <span class="item-name">{{ item.product_name }}</span>
+              <span class="item-qty">×{{ item.quantity }}</span>
+            </div>
+            <span class="item-subtotal">{{ formatPrice(item.subtotal) }}</span>
+          </div>
+        </div>
+
+        <div class="summary-footer">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ formatPrice(cart.subtotal) }}</span>
+          </div>
+          <div class="summary-row">
+            <span>IVA (21%)</span>
+            <span>{{ formatPrice(cart.tax) }}</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span class="total-amount">{{ formatPrice(cart.total) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
