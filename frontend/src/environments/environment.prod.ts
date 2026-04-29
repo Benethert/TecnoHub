@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiUrl: '/api',
-  stripePublicKey: 'pk_live_REEMPLAZA_CON_TU_CLAVE_STRIPE',
+  stripePublicKey: 'CLAVE_STRIPE_QUE_NO_TENGO_AUN',
 };
