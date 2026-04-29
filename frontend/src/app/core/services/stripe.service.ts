@@ -29,10 +29,12 @@ export class StripeService {
       },
     });
 
+    // Manejo de errores y validación del estado del pago
     if (error) {
       throw new Error(error.message ?? 'Error al procesar el pago.');
     }
 
+    // Verificar que el pago se haya completado exitosamente
     if (paymentIntent?.status !== 'succeeded') {
       throw new Error(`El pago no pudo completarse. Estado: ${paymentIntent?.status}`);
     }

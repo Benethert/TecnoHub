@@ -19,10 +19,12 @@ export class CartPageComponent implements OnInit {
     private router: Router
   ) {}
 
+  // Carga el carrito al iniciar el componente
   ngOnInit(): void {
     this.loadCart();
   }
 
+  // Métodos para manejar el carrito: cargar, actualizar cantidad, eliminar, vaciar y proceder al checkout
   loadCart(): void {
     this.loading = true;
     this.cartService.getCart().subscribe({
@@ -37,6 +39,7 @@ export class CartPageComponent implements OnInit {
     });
   }
 
+  // Actualiza la cantidad de un producto en el carrito, con validación de rango
   updateQuantity(item: CartItem, newQty: number): void {
     if (newQty < 1 || newQty > 99) return;
     this.updatingItemId = item.id;
@@ -49,6 +52,7 @@ export class CartPageComponent implements OnInit {
     });
   }
 
+  // Elimina un producto del carrito
   removeItem(item: CartItem): void {
     this.updatingItemId = item.id;
     this.cartService.removeItem(item.id).subscribe({
@@ -60,6 +64,7 @@ export class CartPageComponent implements OnInit {
     });
   }
 
+  // Vacía todo el carrito con confirmación del usuario
   clearCart(): void {
     if (!confirm('¿Vaciar todo el carrito?')) return;
     this.cartService.clearCart().subscribe({
@@ -67,10 +72,12 @@ export class CartPageComponent implements OnInit {
     });
   }
 
+  // Navega a la página de checkout
   proceedToCheckout(): void {
     this.router.navigate(['/recambios/checkout']);
   }
 
+  // Formatea un número como precio en euros
   formatPrice(amount: number): string {
     return new Intl.NumberFormat('es-ES', {
       style: 'currency',
@@ -78,6 +85,7 @@ export class CartPageComponent implements OnInit {
     }).format(amount);
   }
 
+  // Función de trackBy para optimizar la renderización de la lista de productos en el carrito
   trackByItemId(_: number, item: CartItem): number {
     return item.id;
   }

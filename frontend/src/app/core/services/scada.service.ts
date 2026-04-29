@@ -48,7 +48,7 @@ export class ScadaService {
 
   /**
    * GET /api/scada/historicos
-   * Retorna histórico de comandos y eventos
+   * Devuelve histórico de comandos y eventos
    */
   getHistoricos(
     machineId?: number,
@@ -73,7 +73,7 @@ export class ScadaService {
 
   /**
    * GET /api/scada/eventos-maquina/{machineId}
-   * Retorna eventos históricos de una máquina (para integración con Tickets)
+   * Devuelve eventos históricos de una máquina (para integración con Tickets)
    */
   getEventosMaquina(
     machineId: number,

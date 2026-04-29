@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TicketsService } from '../../core/services/tickets.service';
+import { CartService } from '../../core/services/cart.service';
+import { ScadaService } from '../../core/services/scada.service';
 
 interface KpiCard {
   label: string;
@@ -35,7 +38,7 @@ export class DashboardComponent implements OnInit {
 
   get greeting(): string {
     if (this.currentHour < 12) return 'Buenos días';
-    if (this.currentHour < 19) return 'Buenas tardes';
+    if (this.currentHour < 21) return 'Buenas tardes';
     return 'Buenas noches';
   }
 
@@ -57,7 +60,7 @@ export class DashboardComponent implements OnInit {
       route: '/recambios',
     },
     {
-      label: 'Máquinas Activas',
+      label: 'Dispositivos Activos',
       value: '—',
       sub: 'En producción',
       icon: 'machine',
@@ -66,8 +69,8 @@ export class DashboardComponent implements OnInit {
     },
     {
       label: 'Estado SCADA',
-      value: 'Online',
-      sub: 'Node-RED conectado',
+      value: '—',
+      sub: 'Comprobando conexión…',
       icon: 'scada',
       color: '#6366F1',
       route: '/scada',
@@ -101,9 +104,68 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private ticketsService: TicketsService,
+    private cartService: CartService,
+    private scadaService: ScadaService,
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadTicketsAbiertos();
+    this.loadPedidosPendientes();
+    this.loadScadaEstado();
+  }
+
+  private loadTicketsAbiertos(): void {
+    this.ticketsService.getTickets({ status: 'open' }).subscribe({
+      next: (res) => {
+        this.kpis[0].value = res.total;
+        this.kpis[0].sub = res.total === 1 ? '1 incidencia activa' : `${res.total} incidencias activas`;
+      },
+      error: () => {
+        this.kpis[0].value = '—';
+      },
+    });
+  }
+
+  private loadPedidosPendientes(): void {
+    this.cartService.getOrders().subscribe({
+      next: (res) => {
+        const pendientes = res.data.filter(
+          (o: any) => o.status === 'confirmed' || o.status === 'processing'
+        );
+        this.kpis[1].value = pendientes.length;
+        this.kpis[1].sub = pendientes.length === 1 ? '1 pedido en proceso' : `${pendientes.length} pedidos en proceso`;
+      },
+      error: () => {
+        this.kpis[1].value = '—';
+      },
+    });
+  }
+
+  private loadScadaEstado(): void {
+    this.scadaService.getDashboard().subscribe({
+      next: (state) => {
+        // Cuenta cuántos dispositivos están activos (bombas, válvula, lámpara)
+        const isActive = (v: any) => v === true || v === 1 || v === 'true' || v === '1';
+        const activos = [state.O_B1, state.O_B2, state.O_VAL, state.O_LAMP]
+          .filter(isActive).length;
+
+        this.kpis[2].value = activos;
+        this.kpis[2].sub = activos === 1 ? '1 dispositivo activo' : `${activos} dispositivos activos`;
+
+        this.kpis[3].value = 'Online';
+        this.kpis[3].sub = 'Node-RED conectado';
+      },
+      error: () => {
+        this.kpis[2].value = '—';
+        this.kpis[2].sub = 'Sin conexión SCADA';
+        this.kpis[3].value = 'Offline';
+        this.kpis[3].sub = 'Node-RED no disponible';
+      },
+    });
+  }
 
   navigate(route: string): void {
     this.router.navigate([route]);

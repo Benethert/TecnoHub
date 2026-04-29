@@ -13,7 +13,7 @@ $white:     #FFFFFF;
   background: $bg;
 }
 
-// ── Alerts ───────────────────────────────────────────────
+// Alerts
 .alert-error {
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@ $white:     #FFFFFF;
   font-size: 16px;
 }
 
-// ── States ───────────────────────────────────────────────
+// States
 .loading-state, .empty-state {
   text-align: center;
   padding: 80px 24px;
@@ -77,7 +77,7 @@ $white:     #FFFFFF;
   &:hover { background: #4338CA; }
 }
 
-// ── Layout 2 columnas ─────────────────────────────────────
+// Layout 2 columnas (artículos + resumen)
 .cart-layout {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -89,7 +89,7 @@ $white:     #FFFFFF;
   }
 }
 
-// ── Columna artículos ─────────────────────────────────────
+// Columna artículos
 .cart-col {
   display: flex;
   flex-direction: column;
@@ -119,7 +119,7 @@ $white:     #FFFFFF;
   // height: 24px
 }
 
-// ── Item ──────────────────────────────────────────────────
+// Item
 .cart-item {
   display: flex;
   align-items: center;
@@ -135,7 +135,7 @@ $white:     #FFFFFF;
   &.updating { opacity: 0.5; pointer-events: none; }
 }
 
-// Thumbnail 68×68 indigo tint (como en el design)
+// Thumbnail + info (izquierda)
 .item-thumb {
   width: 68px;
   height: 68px;
@@ -175,7 +175,7 @@ $white:     #FFFFFF;
   margin: 0;
 }
 
-// Precio + qty (derecha)
+// Precio + cantidad (derecha)
 .item-right {
   display: flex;
   flex-direction: column;
@@ -190,7 +190,6 @@ $white:     #FFFFFF;
   color: $text-dark;
 }
 
-// Qty box con borde (diseño: "−  2  +")
 .qty-box {
   display: flex;
   align-items: center;
@@ -248,7 +247,7 @@ $white:     #FFFFFF;
   &:hover:not(:disabled) { background: #FEF2F2; color: #EF4444; }
 }
 
-// ── Resumen (320px) ───────────────────────────────────────
+// Resumen (320px)
 .summary-col {
   position: sticky;
   top: 24px;
