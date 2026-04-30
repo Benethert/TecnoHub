@@ -7,7 +7,7 @@ import {
   tap,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-NZQ3SXBR.js";
+} from "./chunk-L3TQ2LIC.js";
 
 // src/app/core/services/cart.service.ts
 var CartService = class _CartService {
@@ -91,4 +91,4 @@ var CartService = class _CartService {
 export {
   CartService
 };
-//# sourceMappingURL=chunk-NIPEZTF2.js.map
+//# sourceMappingURL=chunk-GH4YJHLY.js.map

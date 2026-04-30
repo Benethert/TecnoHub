@@ -1,13 +1,13 @@
 import {
   CartService
-} from "./chunk-NIPEZTF2.js";
+} from "./chunk-GH4YJHLY.js";
 import {
   TicketsService
-} from "./chunk-GTYZY7FH.js";
+} from "./chunk-XIGUFS4C.js";
 import "./chunk-NW4XVQFF.js";
 import {
   ScadaService
-} from "./chunk-GL2TWO62.js";
+} from "./chunk-SH4TKLEO.js";
 import {
   CommonModule,
   NgForOf,
@@ -35,7 +35,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1
-} from "./chunk-NZQ3SXBR.js";
+} from "./chunk-L3TQ2LIC.js";
 
 // src/app/features/dashboard/dashboard.component.ts
 function DashboardComponent_div_13__svg_svg_2_Template(rf, ctx) {
@@ -305,11 +305,17 @@ var DashboardComponent = class _DashboardComponent {
     this.cartService.getOrders().subscribe({
       next: (res) => {
         const pendientes = res.data.filter((o) => o.status === "confirmed" || o.status === "processing");
-        this.kpis[1].value = pendientes.length;
-        this.kpis[1].sub = pendientes.length === 1 ? "1 pedido en proceso" : `${pendientes.length} pedidos en proceso`;
+        if (pendientes.length === 0) {
+          this.kpis[1].value = "0";
+          this.kpis[1].sub = "No hay pedidos pendientes";
+        } else {
+          this.kpis[1].value = pendientes.length;
+          this.kpis[1].sub = pendientes.length === 1 ? "1 pedido en proceso" : `${pendientes.length} pedidos en proceso`;
+        }
       },
       error: () => {
         this.kpis[1].value = "\u2014";
+        this.kpis[1].sub = "Error de carga";
       }
     });
   }
@@ -409,4 +415,4 @@ var DashboardModule = class _DashboardModule {
 export {
   DashboardModule
 };
-//# sourceMappingURL=chunk-FVZ53T2L.js.map
+//# sourceMappingURL=chunk-VJVBJCYF.js.map

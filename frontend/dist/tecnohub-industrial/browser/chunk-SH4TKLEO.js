@@ -6,7 +6,7 @@ import {
   switchMap,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-NZQ3SXBR.js";
+} from "./chunk-L3TQ2LIC.js";
 
 // src/app/core/services/scada.service.ts
 var ScadaService = class _ScadaService {
@@ -78,4 +78,4 @@ var ScadaService = class _ScadaService {
 export {
   ScadaService
 };
-//# sourceMappingURL=chunk-GL2TWO62.js.map
+//# sourceMappingURL=chunk-SH4TKLEO.js.map

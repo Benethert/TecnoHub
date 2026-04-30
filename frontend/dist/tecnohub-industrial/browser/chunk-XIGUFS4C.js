@@ -7,7 +7,7 @@ import {
   map,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-NZQ3SXBR.js";
+} from "./chunk-L3TQ2LIC.js";
 
 // src/app/core/services/tickets.service.ts
 var TicketsService = class _TicketsService {
@@ -62,4 +62,4 @@ var TicketsService = class _TicketsService {
 export {
   TicketsService
 };
-//# sourceMappingURL=chunk-GTYZY7FH.js.map
+//# sourceMappingURL=chunk-XIGUFS4C.js.map

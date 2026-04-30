@@ -35870,6 +35870,7 @@ export {
   CommonModule,
   HttpParams,
   HttpClient,
+  HTTP_INTERCEPTORS,
   HttpClientModule,
   platformBrowser,
   BrowserModule,
@@ -35968,4 +35969,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-NZQ3SXBR.js.map
+//# sourceMappingURL=chunk-L3TQ2LIC.js.map

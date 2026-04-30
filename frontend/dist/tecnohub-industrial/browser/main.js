@@ -1,5 +1,6 @@
 import {
   BrowserModule,
+  HTTP_INTERCEPTORS,
   HttpClientModule,
   NgForOf,
   NgIf,
@@ -12,6 +13,7 @@ import {
   ɵɵadvance,
   ɵɵclassProp,
   ɵɵdefineComponent,
+  ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdirectiveInject,
@@ -25,7 +27,7 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-NZQ3SXBR.js";
+} from "./chunk-L3TQ2LIC.js";
 
 // src/app/app-routing.module.ts
 var routes = [
@@ -36,19 +38,19 @@ var routes = [
   },
   {
     path: "dashboard",
-    loadChildren: () => import("./chunk-FVZ53T2L.js").then((m) => m.DashboardModule)
+    loadChildren: () => import("./chunk-VJVBJCYF.js").then((m) => m.DashboardModule)
   },
   {
     path: "recambios",
-    loadChildren: () => import("./chunk-2TJ424NS.js").then((m) => m.CartModule)
+    loadChildren: () => import("./chunk-C3HC5ZQP.js").then((m) => m.CartModule)
   },
   {
     path: "incidencias",
-    loadChildren: () => import("./chunk-DKBFPKS6.js").then((m) => m.TicketsModule)
+    loadChildren: () => import("./chunk-LHBKU4BQ.js").then((m) => m.TicketsModule)
   },
   {
     path: "scada",
-    loadChildren: () => import("./chunk-A65ITEDY.js").then((m) => m.ScadaModule)
+    loadChildren: () => import("./chunk-TV37P32T.js").then((m) => m.ScadaModule)
   },
   {
     path: "**",
@@ -207,6 +209,28 @@ var AppComponent = class _AppComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 8 });
 })();
 
+// src/app/core/interceptors/auth.interceptor.ts
+var AuthInterceptor = class _AuthInterceptor {
+  intercept(req, next) {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      const authReq = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` }
+      });
+      return next.handle(authReq);
+    }
+    return next.handle(req);
+  }
+  static {
+    this.\u0275fac = function AuthInterceptor_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _AuthInterceptor)();
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AuthInterceptor, factory: _AuthInterceptor.\u0275fac });
+  }
+};
+
 // src/app/app.module.ts
 var AppModule = class _AppModule {
   static {
@@ -218,7 +242,9 @@ var AppModule = class _AppModule {
     this.\u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({ type: _AppModule, bootstrap: [AppComponent] });
   }
   static {
-    this.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ imports: [
+    this.\u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({ providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ], imports: [
       BrowserModule,
       HttpClientModule,
       AppRoutingModule
