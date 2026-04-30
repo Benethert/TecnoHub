@@ -12,6 +12,7 @@ import {
 } from "./chunk-OHOFYOEK.js";
 import {
   CommonModule,
+  HttpClient,
   NgForOf,
   NgIf,
   Router,
@@ -20,6 +21,7 @@ import {
   __async,
   ɵsetClassDebugInfo,
   ɵɵadvance,
+  ɵɵclassMap,
   ɵɵclassProp,
   ɵɵdefineComponent,
   ɵɵdefineInjectable,
@@ -30,8 +32,11 @@ import {
   ɵɵelementEnd,
   ɵɵelementStart,
   ɵɵgetCurrentView,
+  ɵɵinject,
   ɵɵlistener,
   ɵɵloadQuery,
+  ɵɵnamespaceHTML,
+  ɵɵnamespaceSVG,
   ɵɵnextContext,
   ɵɵproperty,
   ɵɵqueryRefresh,
@@ -47,6 +52,305 @@ import {
   ɵɵtwoWayProperty,
   ɵɵviewQuery
 } from "./chunk-L3TQ2LIC.js";
+
+// src/app/core/services/product.service.ts
+var ProductService = class _ProductService {
+  constructor(http) {
+    this.http = http;
+    this.apiUrl = `${environment.apiUrl}/products`;
+  }
+  getProducts(search) {
+    const params = {};
+    if (search)
+      params["search"] = search;
+    return this.http.get(this.apiUrl, { params });
+  }
+  getProduct(id) {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+  static {
+    this.\u0275fac = function ProductService_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ProductService)(\u0275\u0275inject(HttpClient));
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _ProductService, factory: _ProductService.\u0275fac, providedIn: "root" });
+  }
+};
+
+// src/app/features/cart/catalog/catalog.component.ts
+function CatalogComponent_span_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 15);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.cartCount);
+  }
+}
+function CatalogComponent_div_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 16);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.successMessage);
+  }
+}
+function CatalogComponent_div_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 17);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.error);
+  }
+}
+function CatalogComponent_div_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 18);
+    \u0275\u0275element(1, "div", 19);
+    \u0275\u0275elementStart(2, "p");
+    \u0275\u0275text(3, "Cargando cat\xE1logo\u2026");
+    \u0275\u0275elementEnd()();
+  }
+}
+function CatalogComponent_div_17_div_1_img_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "img", 34);
+  }
+  if (rf & 2) {
+    const product_r3 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275property("src", product_r3.image, \u0275\u0275sanitizeUrl)("alt", product_r3.name);
+  }
+}
+function CatalogComponent_div_17_div_1_div_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 35);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(1, "svg", 36);
+    \u0275\u0275element(2, "rect", 37)(3, "circle", 38)(4, "path", 39);
+    \u0275\u0275elementEnd()();
+  }
+}
+function CatalogComponent_div_17_div_1_p_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 40);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const product_r3 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(product_r3.description);
+  }
+}
+function CatalogComponent_div_17_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 22)(1, "div", 23);
+    \u0275\u0275template(2, CatalogComponent_div_17_div_1_img_2_Template, 1, 2, "img", 24)(3, CatalogComponent_div_17_div_1_div_3_Template, 5, 0, "div", 25);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 26)(5, "span", 27);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "h3", 28);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(9, CatalogComponent_div_17_div_1_p_9_Template, 2, 1, "p", 29);
+    \u0275\u0275elementStart(10, "div", 30)(11, "span", 31);
+    \u0275\u0275text(12);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(13, "span", 32);
+    \u0275\u0275text(14);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "button", 33);
+    \u0275\u0275listener("click", function CatalogComponent_div_17_div_1_Template_button_click_15_listener() {
+      const product_r3 = \u0275\u0275restoreView(_r2).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.addToCart(product_r3));
+    });
+    \u0275\u0275text(16);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const product_r3 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", product_r3.image);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", !product_r3.image);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(product_r3.sku);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(product_r3.name);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", product_r3.description);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r0.formatPrice(product_r3.price));
+    \u0275\u0275advance();
+    \u0275\u0275classMap(ctx_r0.stockClass(product_r3.stock));
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r0.stockLabel(product_r3.stock), " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", product_r3.stock === 0 || ctx_r0.addingProductId === product_r3.id);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r0.addingProductId === product_r3.id ? "A\xF1adiendo\u2026" : "A\xF1adir al carrito", " ");
+  }
+}
+function CatalogComponent_div_17_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275template(1, CatalogComponent_div_17_div_1_Template, 17, 11, "div", 21);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r0.products);
+  }
+}
+function CatalogComponent_div_18_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 41);
+    \u0275\u0275namespaceSVG();
+    \u0275\u0275elementStart(1, "svg", 42);
+    \u0275\u0275element(2, "path", 43);
+    \u0275\u0275elementEnd();
+    \u0275\u0275namespaceHTML();
+    \u0275\u0275elementStart(3, "p");
+    \u0275\u0275text(4, "No hay productos disponibles en el cat\xE1logo.");
+    \u0275\u0275elementEnd()();
+  }
+}
+var CatalogComponent = class _CatalogComponent {
+  get cartCount() {
+    return this.cartService.itemCount();
+  }
+  constructor(productService, cartService, router) {
+    this.productService = productService;
+    this.cartService = cartService;
+    this.router = router;
+    this.products = [];
+    this.loading = true;
+    this.error = null;
+    this.addingProductId = null;
+    this.successMessage = null;
+  }
+  ngOnInit() {
+    this.loadProducts();
+  }
+  loadProducts() {
+    this.loading = true;
+    this.error = null;
+    this.productService.getProducts().subscribe({
+      next: (res) => {
+        this.products = res.data;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = "No se pudo cargar el cat\xE1logo. Int\xE9ntalo de nuevo.";
+        this.loading = false;
+      }
+    });
+  }
+  addToCart(product) {
+    if (product.stock === 0)
+      return;
+    this.addingProductId = product.id;
+    this.cartService.addItem({ product_id: product.id, quantity: 1 }).subscribe({
+      next: () => {
+        this.addingProductId = null;
+        this.successMessage = `"${product.name}" a\xF1adido al carrito.`;
+        setTimeout(() => this.successMessage = null, 3e3);
+      },
+      error: (err) => {
+        this.addingProductId = null;
+        this.error = err.error?.message ?? "Error al a\xF1adir al carrito.";
+        setTimeout(() => this.error = null, 4e3);
+      }
+    });
+  }
+  goToCart() {
+    this.router.navigate(["/recambios/carrito"]);
+  }
+  formatPrice(amount) {
+    return new Intl.NumberFormat("es-ES", {
+      style: "currency",
+      currency: "EUR"
+    }).format(amount);
+  }
+  stockLabel(stock) {
+    if (stock === 0)
+      return "Sin stock";
+    if (stock < 5)
+      return "Pocas unidades";
+    return "Disponible";
+  }
+  stockClass(stock) {
+    if (stock === 0)
+      return "out";
+    if (stock < 5)
+      return "low";
+    return "";
+  }
+  static {
+    this.\u0275fac = function CatalogComponent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _CatalogComponent)(\u0275\u0275directiveInject(ProductService), \u0275\u0275directiveInject(CartService), \u0275\u0275directiveInject(Router));
+    };
+  }
+  static {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CatalogComponent, selectors: [["app-catalog"]], decls: 19, vars: 6, consts: [[1, "catalog-page"], [1, "catalog-header"], [1, "catalog-title"], [1, "catalog-subtitle"], [1, "btn-cart", 3, "click"], ["width", "18", "height", "18", "viewBox", "0 0 24 24", "fill", "none", "stroke", "currentColor", "stroke-width", "2", "stroke-linecap", "round", "stroke-linejoin", "round"], ["cx", "9", "cy", "21", "r", "1"], ["cx", "20", "cy", "21", "r", "1"], ["d", "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"], ["class", "cart-badge", 4, "ngIf"], ["class", "alert-success", 4, "ngIf"], ["class", "alert-error", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "product-grid", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], [1, "cart-badge"], [1, "alert-success"], [1, "alert-error"], [1, "loading-state"], [1, "spinner"], [1, "product-grid"], ["class", "product-card", 4, "ngFor", "ngForOf"], [1, "product-card"], [1, "product-image"], [3, "src", "alt", 4, "ngIf"], ["class", "product-placeholder", 4, "ngIf"], [1, "product-info"], [1, "product-sku"], [1, "product-name"], ["class", "product-desc", 4, "ngIf"], [1, "product-footer"], [1, "product-price"], [1, "stock-badge"], [1, "btn-add", 3, "click", "disabled"], [3, "src", "alt"], [1, "product-placeholder"], ["width", "48", "height", "48", "viewBox", "0 0 24 24", "fill", "none", "stroke", "#CBD5E1", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], ["x", "2", "y", "2", "width", "20", "height", "20", "rx", "3"], ["cx", "12", "cy", "10", "r", "3"], ["d", "M4 20c0-3.31 3.58-6 8-6s8 2.69 8 6"], [1, "product-desc"], [1, "empty-state"], ["width", "56", "height", "56", "viewBox", "0 0 24 24", "fill", "none", "stroke", "#CBD5E1", "stroke-width", "1.2", "stroke-linecap", "round", "stroke-linejoin", "round"], ["d", "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"]], template: function CatalogComponent_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div")(3, "h1", 2);
+        \u0275\u0275text(4, "Cat\xE1logo de Recambios");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(5, "p", 3);
+        \u0275\u0275text(6, "Selecciona los productos para a\xF1adir a tu pedido");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(7, "button", 4);
+        \u0275\u0275listener("click", function CatalogComponent_Template_button_click_7_listener() {
+          return ctx.goToCart();
+        });
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(8, "svg", 5);
+        \u0275\u0275element(9, "circle", 6)(10, "circle", 7)(11, "path", 8);
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(12, " Ver carrito ");
+        \u0275\u0275template(13, CatalogComponent_span_13_Template, 2, 1, "span", 9);
+        \u0275\u0275elementEnd()();
+        \u0275\u0275template(14, CatalogComponent_div_14_Template, 2, 1, "div", 10)(15, CatalogComponent_div_15_Template, 2, 1, "div", 11)(16, CatalogComponent_div_16_Template, 4, 0, "div", 12)(17, CatalogComponent_div_17_Template, 2, 1, "div", 13)(18, CatalogComponent_div_18_Template, 5, 0, "div", 14);
+        \u0275\u0275elementEnd();
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(13);
+        \u0275\u0275property("ngIf", ctx.cartCount > 0);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.successMessage);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.error);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", ctx.loading);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", !ctx.loading && ctx.products.length > 0);
+        \u0275\u0275advance();
+        \u0275\u0275property("ngIf", !ctx.loading && !ctx.error && ctx.products.length === 0);
+      }
+    }, dependencies: [NgForOf, NgIf], styles: ["\n\n.catalog-page[_ngcontent-%COMP%] {\n  padding: 32px;\n  max-width: 1200px;\n}\n.catalog-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-bottom: 28px;\n}\n.catalog-title[_ngcontent-%COMP%] {\n  font-size: 22px;\n  font-weight: 700;\n  color: #1E293B;\n  margin: 0 0 4px;\n}\n.catalog-subtitle[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #64748B;\n  margin: 0;\n}\n.btn-cart[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: #4F46E5;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: background 0.2s;\n  white-space: nowrap;\n}\n.btn-cart[_ngcontent-%COMP%]:hover {\n  background: #4338CA;\n}\n.btn-cart[_ngcontent-%COMP%]   .cart-badge[_ngcontent-%COMP%] {\n  background: #EF4444;\n  color: white;\n  border-radius: 50%;\n  min-width: 20px;\n  height: 20px;\n  font-size: 11px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0 4px;\n}\n.alert-success[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  background: #DCFCE7;\n  border: 1px solid #86EFAC;\n  border-radius: 8px;\n  color: #166534;\n  margin-bottom: 16px;\n  font-size: 14px;\n}\n.alert-error[_ngcontent-%COMP%] {\n  padding: 12px 16px;\n  background: #FEF2F2;\n  border: 1px solid #FECACA;\n  border-radius: 8px;\n  color: #991B1B;\n  margin-bottom: 16px;\n  font-size: 14px;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 80px 0;\n  color: #64748B;\n  font-size: 14px;\n  gap: 12px;\n}\n.loading-state[_ngcontent-%COMP%]   .spinner[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border: 3px solid #E2E8F0;\n  border-top-color: #4F46E5;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 0.8s linear infinite;\n}\n.product-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 20px;\n}\n.product-card[_ngcontent-%COMP%] {\n  background: white;\n  border: 1px solid #E2E8F0;\n  border-radius: 12px;\n  overflow: hidden;\n  transition: box-shadow 0.2s, transform 0.15s;\n}\n.product-card[_ngcontent-%COMP%]:hover {\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);\n  transform: translateY(-2px);\n}\n.product-image[_ngcontent-%COMP%] {\n  height: 150px;\n  background: #F8FAFC;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n}\n.product-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.product-placeholder[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n}\n.product-info[_ngcontent-%COMP%] {\n  padding: 16px;\n}\n.product-sku[_ngcontent-%COMP%] {\n  font-size: 11px;\n  font-weight: 600;\n  color: #94A3B8;\n  text-transform: uppercase;\n  letter-spacing: 0.06em;\n  display: block;\n  margin-bottom: 4px;\n}\n.product-name[_ngcontent-%COMP%] {\n  font-size: 15px;\n  font-weight: 600;\n  color: #1E293B;\n  margin: 0 0 6px;\n  line-height: 1.3;\n}\n.product-desc[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #64748B;\n  margin: 0 0 12px;\n  line-height: 1.5;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n}\n.product-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 14px;\n}\n.product-price[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 700;\n  color: #4F46E5;\n}\n.stock-badge[_ngcontent-%COMP%] {\n  font-size: 11px;\n  font-weight: 500;\n  padding: 3px 10px;\n  border-radius: 12px;\n  background: #DCFCE7;\n  color: #166534;\n}\n.stock-badge.low[_ngcontent-%COMP%] {\n  background: #FEF3C7;\n  color: #92400E;\n}\n.stock-badge.out[_ngcontent-%COMP%] {\n  background: #FEE2E2;\n  color: #991B1B;\n}\n.btn-add[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 10px;\n  background: #4F46E5;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n.btn-add[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #4338CA;\n}\n.btn-add[_ngcontent-%COMP%]:disabled {\n  background: #E2E8F0;\n  color: #94A3B8;\n  cursor: not-allowed;\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 16px;\n  padding: 80px 0;\n  color: #94A3B8;\n  font-size: 14px;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n/*# sourceMappingURL=catalog.component.css.map */"] });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CatalogComponent, { className: "CatalogComponent", filePath: "src\\app\\features\\cart\\catalog\\catalog.component.ts", lineNumber: 12 });
+})();
 
 // src/app/features/cart/cart-page/cart-page.component.ts
 function CartPageComponent_div_1_Template(rf, ctx) {
@@ -90,7 +394,7 @@ function CartPageComponent_div_3_Template(rf, ctx) {
     \u0275\u0275text(6, "A\xF1ade recambios desde el cat\xE1logo para comenzar tu pedido.");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(7, "a", 11);
-    \u0275\u0275text(8, "Ver cat\xE1logo");
+    \u0275\u0275text(8, "Ir al cat\xE1logo");
     \u0275\u0275elementEnd()();
   }
 }
@@ -844,8 +1148,12 @@ var CheckoutComponent = class _CheckoutComponent {
 
 // src/app/features/cart/cart.module.ts
 var routes = [
-  { path: "", component: CartPageComponent },
+  { path: "", component: CatalogComponent },
+  // /recambios         → catálogo
+  { path: "carrito", component: CartPageComponent },
+  // /recambios/carrito → carrito
   { path: "checkout", component: CheckoutComponent }
+  // /recambios/checkout → checkout
 ];
 var CartModule = class _CartModule {
   static {
@@ -867,4 +1175,4 @@ var CartModule = class _CartModule {
 export {
   CartModule
 };
-//# sourceMappingURL=chunk-C3HC5ZQP.js.map
+//# sourceMappingURL=chunk-ZZ2SF2TK.js.map

@@ -42,7 +42,7 @@ var routes = [
   },
   {
     path: "recambios",
-    loadChildren: () => import("./chunk-C3HC5ZQP.js").then((m) => m.CartModule)
+    loadChildren: () => import("./chunk-ZZ2SF2TK.js").then((m) => m.CartModule)
   },
   {
     path: "incidencias",
