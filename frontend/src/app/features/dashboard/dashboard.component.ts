@@ -135,11 +135,17 @@ export class DashboardComponent implements OnInit {
         const pendientes = res.data.filter(
           (o: any) => o.status === 'confirmed' || o.status === 'processing'
         );
-        this.kpis[1].value = pendientes.length;
-        this.kpis[1].sub = pendientes.length === 1 ? '1 pedido en proceso' : `${pendientes.length} pedidos en proceso`;
+        if (pendientes.length === 0) {
+          this.kpis[1].value = '0';
+          this.kpis[1].sub = 'No hay pedidos pendientes';
+        } else {
+          this.kpis[1].value = pendientes.length;
+          this.kpis[1].sub = pendientes.length === 1 ? '1 pedido en proceso' : `${pendientes.length} pedidos en proceso`;
+        }
       },
       error: () => {
         this.kpis[1].value = '—';
+        this.kpis[1].sub = 'No se ha podido cargar correctamente';
       },
     });
   }
