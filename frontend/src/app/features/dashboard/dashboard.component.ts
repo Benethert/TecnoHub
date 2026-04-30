@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
       },
       error: () => {
         this.kpis[1].value = '—';
-        this.kpis[1].sub = 'No se ha podido cargar correctamente';
+        this.kpis[1].sub = 'Error de carga';
       },
     });
   }
