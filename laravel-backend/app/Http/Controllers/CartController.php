@@ -46,8 +46,8 @@ class CartController extends Controller
      * POST /api/cart/items — Añade un producto al carrito. 
      * Valida que el producto exista y que la cantidad solicitada no exceda el stock disponible. 
      * Si el producto ya está en el carrito, se actualiza la cantidad en lugar de crear un nuevo item. 
-     * Retorna el item añadido o actualizado junto con el estado actualizado del carrito. 
-     * Si hay un error de validación o stock, retorna un mensaje de error
+     * Devuelve el item añadido o actualizado junto con el estado actualizado del carrito. 
+     * Si hay un error de validación o stock, devueve un mensaje de error
      */
     public function addItem(Request $request): JsonResponse
     {
@@ -60,7 +60,7 @@ class CartController extends Controller
         // Verificar stock
         $product = Product::findOrFail($request->product_id);
 
-        // Si el producto no tiene suficiente stock, retornar error
+        // Si el producto no tiene suficiente stock, devolver error
         if ($product->stock < $request->quantity) {
             return response()->json([
                 'message' => "Stock insuficiente. Disponible: {$product->stock} unidades.",
@@ -95,7 +95,7 @@ class CartController extends Controller
         $item->load('product');
         $cart->refresh()->load('items');
 
-        // Retornar respuesta con el item añadido y el estado actualizado del carrito
+        // Devolver respuesta con el item añadido y el estado actualizado del carrito
         return response()->json([
             'message' => 'Producto añadido al carrito.',
             'data'    => $this->formatItem($item),
@@ -109,8 +109,8 @@ class CartController extends Controller
     /**
      * PUT /api/cart/items/{item} — Actualiza la cantidad de un item en el carrito. 
      * Valida que la cantidad solicitada sea un número entero positivo y que no exceda el stock disponible del producto. 
-     * Retorna el item actualizado junto con el estado actualizado del carrito. 
-     * Si el item no pertenece al usuario o si hay un error de validación o stock, retorna un mensaje de error.
+     * Devuelve el item actualizado junto con el estado actualizado del carrito. 
+     * Si el item no pertenece al usuario o si hay un error de validación o stock, devuelve un mensaje de error.
      */
     public function updateItem(Request $request, CartItem $item): JsonResponse
     {
@@ -135,7 +135,7 @@ class CartController extends Controller
         $cart = $item->cart->fresh();
         $cart->load('items');
 
-        // Retornar respuesta con el item actualizado y el estado actualizado del carrito
+        // Devolver respuesta con el item actualizado y el estado actualizado del carrito
         return response()->json([
             'message' => 'Cantidad actualizada.',
             'data'    => $this->formatItem($item),
@@ -151,8 +151,8 @@ class CartController extends Controller
     /**
      * DELETE /api/cart/items/{item} — Elimina un item del carrito. 
      * Valida que el item exista y que pertenezca al carrito del usuario. 
-     * Retorna un mensaje de éxito junto con el estado actualizado del carrito. 
-     * Si el item no pertenece al usuario, retorna un mensaje de error de autorización.
+     * Devuelve un mensaje de éxito junto con el estado actualizado del carrito. 
+     * Si el item no pertenece al usuario, devuelve un mensaje de error de autorización.
      */
     public function removeItem(Request $request, CartItem $item): JsonResponse
     {
@@ -177,8 +177,8 @@ class CartController extends Controller
      * DELETE /api/cart — Vaciar el carrito completo
      * Valida que el carrito exista para el usuario. 
      * Elimina todos los items del carrito. 
-     * Retorna un mensaje de éxito junto con el estado actualizado del carrito (que debería estar vacío). 
-     * Si el carrito no existe, retorna un mensaje de error.
+     * Devuelve un mensaje de éxito junto con el estado actualizado del carrito (que debería estar vacío). 
+     * Si el carrito no existe, devuelve un mensaje de error.
      */
     public function clear(Request $request): JsonResponse
     {
