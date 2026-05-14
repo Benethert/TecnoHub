@@ -16,6 +16,7 @@ interface DocumentationRow {
   templateUrl: './mi-documentacion.component.html',
   styleUrls: ['./mi-documentacion.component.scss'],
 })
+//componente para la documentación
 export class MiDocumentacionComponent implements OnInit {
   rows: DocumentationRow[] = [];
   loading = true;
@@ -31,6 +32,7 @@ export class MiDocumentacionComponent implements OnInit {
     this.loadDocumentationRows();
   }
 
+  //abre la documentación
   openDocumentation(url: string): void {
     window.open(this.normalizeUrl(url), '_blank', 'noopener,noreferrer');
   }
@@ -39,6 +41,7 @@ export class MiDocumentacionComponent implements OnInit {
     this.searchInput = '';
   }
 
+  //devuelve las filas filtradas
   get filteredRows(): DocumentationRow[] {
     const term = this.searchInput.trim().toLocaleLowerCase('es');
     if (!term) {
@@ -53,11 +56,13 @@ export class MiDocumentacionComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
+    //obtiene los pedidos y productos
     forkJoin({
       orders: this.cartService.getOrders(),
       products: this.productService.getProducts(),
     }).subscribe({
       next: ({ orders, products }) => {
+        //obtiene los ids de los productos comprados
         const purchasedIds = new Set<number>();
         for (const order of orders.data) {
           for (const item of order.items ?? []) {
@@ -85,10 +90,12 @@ export class MiDocumentacionComponent implements OnInit {
     });
   }
 
+  //devuelve si el producto tiene documentación
   private hasDocumentationUrl(product: Product): boolean {
     return typeof product.documentation === 'string' && product.documentation.trim().length > 0;
   }
 
+  //normaliza la url
   private normalizeUrl(rawUrl: string): string {
     const url = rawUrl.trim();
     if (/^https?:\/\//i.test(url)) {
