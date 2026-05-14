@@ -23,6 +23,7 @@ class ScadaCommand extends Model
         'updated_at' => 'datetime',
     ];
 
+    // Usuario que emitió el comando (para auditoría)
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -45,10 +45,12 @@ export class TicketCreateComponent implements OnInit {
     });
   }
 
+  //actualiza el campo 'priority' del formulario al seleccionar una opción visual
   setPriority(value: TicketPriority): void {
     this.form.patchValue({ priority: value });
   }
 
+  //envía el formulario; si es inválido muestra todos los errores de validación
   submit(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
 
@@ -64,8 +66,10 @@ export class TicketCreateComponent implements OnInit {
     });
   }
 
+  //cancela y vuelve al listado de incidencias
   cancel(): void { this.router.navigate(['/incidencias']); }
 
+  //devuelve true si el campo está inválido y ya fue tocado (para mostrar el mensaje de error)
   fieldError(field: string): boolean {
     const ctrl = this.form.get(field);
     return !!(ctrl?.invalid && ctrl?.touched);

@@ -56,14 +56,17 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  //navega al detalle del pedido seleccionado
   openOrder(order: Order): void {
     this.router.navigate(['/pedidos', order.id]);
   }
 
+  //formatea un importe en euros con el locale español
   formatPrice(amount: number): string {
     return amount.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
   }
 
+  //formatea una fecha ISO a "dd mmm yyyy"
   formatDate(date: string): string {
     return new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit', month: 'short', year: 'numeric',

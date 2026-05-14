@@ -134,11 +134,13 @@ export class TicketDetailComponent implements OnInit, AfterViewChecked {
 
   toggleStatusMenu(): void { this.showStatusMenu = !this.showStatusMenu; }
 
+  //comprueba si el mensaje fue enviado por el usuario actual (para alinearlo a la derecha)
   isOwnMessage(message: TicketMessage): boolean {
     const userId = Number(sessionStorage.getItem('user_id') || localStorage.getItem('user_id'));
     return userId > 0 && message.user_id === userId;
   }
 
+  //extrae las iniciales (máx. 2) del nombre para el avatar del mensaje
   userInitials(name: string): string {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }

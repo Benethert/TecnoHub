@@ -93,30 +93,37 @@ export class TicketListComponent implements OnInit {
     });
   }
 
+  //cambia el filtro de estado activo y recarga la primera página
   setFilter(status: TicketStatus | null): void {
     this.activeFilter = status;
     this.currentPage  = 1;
     this.loadTickets();
   }
 
+  //suma todos los statusCounts para mostrar el total correcto en la pestaña "Todos"
+  //sin depender de this.total, que el backend calcula sobre el filtro activo
   get allCount(): number {
     return Object.values(this.statusCounts).reduce((acc, n) => acc + (n ?? 0), 0);
   }
 
+  //devuelve el contador de tickets para un estado concreto
   getCountForStatus(status: TicketStatus): number {
     return this.statusCounts[status] ?? 0;
   }
 
+  //navega al detalle del ticket seleccionado
   openTicket(ticket: Ticket): void {
     this.router.navigate(['/incidencias', ticket.id]);
   }
 
+  //navega al formulario de nueva incidencia
   newTicket(): void {
     this.router.navigate(['/incidencias/nueva']);
   }
 
   trackById(_: number, t: Ticket): number { return t.id; }
 
+  //formatea una fecha ISO a "dd mmm yyyy"
   formatDate(date: string): string {
     return new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit', month: 'short', year: 'numeric',

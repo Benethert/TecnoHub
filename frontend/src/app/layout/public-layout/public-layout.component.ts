@@ -45,6 +45,7 @@ export class PublicLayoutComponent {
     this.cartDropdownOpen = false;
   }
 
+  //calcula el subtotal de una línea del carrito invitado; devuelve 0 si aún no hay precio
   lineSubtotal(line: GuestCartLine): number {
     if (line.unit_price == null) {
       return 0;
@@ -52,6 +53,7 @@ export class PublicLayoutComponent {
     return line.unit_price * line.quantity;
   }
 
+  //formatea un importe en euros con el locale español
   formatPrice(amount: number): string {
     return new Intl.NumberFormat('es-ES', {
       style: 'currency',
@@ -59,6 +61,7 @@ export class PublicLayoutComponent {
     }).format(amount);
   }
 
+  //muestra el nombre del producto o un fallback con su id
   displayLineName(line: GuestCartLine): string {
     return line.product_name?.trim() || `Producto #${line.product_id}`;
   }

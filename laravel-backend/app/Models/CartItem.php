@@ -24,6 +24,7 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+    // Precio unitario x cantidad, redondeado a 2 decimales
     public function getSubtotalAttribute(): float
     {
         return round($this->unit_price * $this->quantity, 2);

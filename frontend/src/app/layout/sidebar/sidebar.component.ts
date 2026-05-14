@@ -35,10 +35,12 @@ export class SidebarComponent {
     this.currentUser = this.auth.getUser();
   }
 
+  //devuelve true si la URL actual comienza por la ruta del item (para marcar el enlace activo)
   isActive(route: string): boolean {
     return this.router.url.startsWith(route);
   }
 
+  //cierra la sesión del usuario y redirige a la página pública
   logout(): void {
     this.auth.clearSession();
     void this.router.navigateByUrl('/');

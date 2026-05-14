@@ -64,14 +64,17 @@ export class OrderDetailComponent implements OnInit {
     });
   }
 
+  //vuelve al listado de pedidos
   goBack(): void {
     this.router.navigate(['/pedidos']);
   }
 
+  //formatea un importe en euros con el locale español
   formatPrice(amount: number): string {
     return amount.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
   }
 
+  //formatea a fecha y hora completa
   formatDate(date: string): string {
     return new Date(date).toLocaleDateString('es-ES', {
       day: '2-digit', month: 'long', year: 'numeric',

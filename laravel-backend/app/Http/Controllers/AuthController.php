@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // POST /api/auth/register —> Crea un nuevo usuario con rol 'operator' y devuelve su token Sanctum.
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
@@ -33,6 +34,7 @@ class AuthController extends Controller
         ], 201);
     }
 
+    // POST /api/auth/login —> Verifica credenciales, revoca tokens anteriores y emite uno nuevo.
     public function login(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
@@ -56,6 +58,7 @@ class AuthController extends Controller
         ]);
     }
 
+    // POST /api/auth/logout —> Invalida el token actual del usuario.
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
@@ -63,6 +66,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Sesión cerrada correctamente.']);
     }
 
+    // PUT /api/auth/profile —> Actualiza nombre y/o contraseña del usuario autenticado.
     public function updateProfile(Request $request): JsonResponse
     {
         $request->validate([

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+// use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ScadaEvent extends Model
 {
@@ -21,8 +21,9 @@ class ScadaEvent extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function machine(): BelongsTo
-    {
-        return $this->belongsTo(Machine::class);
-    }
+    // Relación con la máquina física (pendiente: crear modelo Machine y migración machines)
+    // public function machine(): BelongsTo
+    // {
+    //     return $this->belongsTo(Machine::class);
+    // }
 }

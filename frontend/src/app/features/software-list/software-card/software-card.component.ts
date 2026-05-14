@@ -29,8 +29,6 @@ export class SoftwareCardComponent {
       return;
     }
 
-    console.log('Comprando:', this.software.nombre, 'Versión:', this.selectedVersion);
-    
   }
 
   descargar() {

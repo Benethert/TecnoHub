@@ -89,11 +89,11 @@ class ScadaController extends Controller
 
         $query = ScadaCommand::query();
 
-        if ($machineId) {
-            // Si hay machine_id, también incluir eventos de esa máquina
-            $eventosQuery = ScadaEvent::where('machine_id', $machineId)
-                ->where('created_at', '>=', now()->subDays($days));
-        }
+        // Filtro de eventos por machine_id (pendiente de activar cuando exista el modelo Machine)
+        // if ($machineId) {
+        //     $eventosQuery = ScadaEvent::where('machine_id', $machineId)
+        //         ->where('created_at', '>=', now()->subDays($days));
+        // }
 
         $commandos = $query
             ->where('created_at', '>=', now()->subDays($days))
